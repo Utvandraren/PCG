@@ -43,13 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480c75f803ea43a4580bbb3ef8bd2abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 3
+  axiom: a
+  iterations: 4
   grammar:
-  - startSymbol: 97
-    rule: b
+  - letter: 97
+    createdGrammar: -b
     objToInstantiate: {fileID: 3340517450429593236, guid: a5a4ee246a3d7814ba410afe4b26f87b,
       type: 3}
-  - startSymbol: 98
-    rule: ab
+  - letter: 98
+    createdGrammar: a[+aab]
     objToInstantiate: {fileID: 6979900591134093943, guid: 7d3554343ca6b694c882ffd0c1024b32,
       type: 3}
