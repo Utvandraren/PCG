@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 566895549408591907}
   - component: {fileID: 566895549408591904}
+  - component: {fileID: 2078154303}
   m_Layer: 0
   m_Name: L_manager
   m_TagString: Untagged
@@ -44,13 +45,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiom: a
-  iterations: 4
+  iterations: 3
   grammar:
-  - letter: 97
-    createdGrammar: -b
-    objToInstantiate: {fileID: 3340517450429593236, guid: a5a4ee246a3d7814ba410afe4b26f87b,
-      type: 3}
-  - letter: 98
-    createdGrammar: a[+aab]
-    objToInstantiate: {fileID: 6979900591134093943, guid: 7d3554343ca6b694c882ffd0c1024b32,
-      type: 3}
+  - {fileID: 11400000, guid: dbabf3a63ef6767469de5cb10d5c1017, type: 2}
+  - {fileID: 11400000, guid: c4ba0cdb6a2f40245b7f5d2e02d1dd98, type: 2}
+  - {fileID: 11400000, guid: 4d38caab851625c4c9ad6a17799045ef, type: 2}
+  - {fileID: 11400000, guid: 8af409f35b5f6454f9f4625d1482ef4d, type: 2}
+--- !u!114 &2078154303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566895549408591905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b69e7dcd5bfc9ca479a0f3dbfb5d1032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grammar: []

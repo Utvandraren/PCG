@@ -6,7 +6,9 @@ public class LSystem : MonoBehaviour
 {
     [SerializeField] private string axiom;
     [SerializeField] private int iterations = 1;
-    [SerializeField] private Alphabet[] grammar;
+    [SerializeField] private GrammarRuleObj[] grammar;
+
+    private Interpreter interpreter;
 
     Vector3 currentPosition;
     string generatedObjects = "";
@@ -19,11 +21,13 @@ public class LSystem : MonoBehaviour
         public char letter;
         public string createdGrammar;
         public GameObject objToInstantiate;
+        public float objDistance;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        interpreter = GetComponent<Interpreter>();
         currentPosition = transform.position;
         generatedObjects = axiom;
         Generate();
@@ -35,32 +39,39 @@ public class LSystem : MonoBehaviour
         for (int i = 0; i < iterations; i++)
         {
             WriteDebugMessage();
-
-            foreach (char letter in generatedObjects)
-            {
-                Interpret(letter);
-            }
+            GenerateGrammar(generatedObjects);
             generatedObjects += tempGeneratedObjects;
             tempGeneratedObjects = "";
-            GenerateObjects();
+            Interpret();
+            //interpreter.GenerateObjects(grammar, tempGeneratedObjects);
+
         }
     }
 
-    void Interpret(char letter)  //Translate the current letters to the next instructions
+    void GenerateGrammar(string generatedObjects)  //Translate the current letters to the next instructions
     {
-        for (int i = 0; i < grammar.Length; i++)
+        foreach (char letter in generatedObjects)
         {
-            if (letter == grammar[i].letter)
+            for (int i = 0; i < grammar.Length; i++)
             {
-                foreach (char result in grammar[i].createdGrammar)
+                if (letter == grammar[i].letter)
                 {
-                    tempGeneratedObjects += result;
+                    foreach (char result in grammar[i].createdGrammar)
+                    {
+                        tempGeneratedObjects += result;
+                    }
                 }
+                
             }
+           
         }
+
+        
+
+
     }
 
-    void GenerateObjects() //Generate phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
+    void Interpret() //Generate phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
     {
         Stack state = new Stack();
 
@@ -71,7 +82,7 @@ public class LSystem : MonoBehaviour
                 if (letter == grammar[i].letter)
                 {
                     Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity);
-                    currentPosition.y += 1f;
+                    currentPosition.x += grammar[i].objDistance;
                 }
                 else if (letter == '[')
                 {
@@ -85,11 +96,11 @@ public class LSystem : MonoBehaviour
                 }
                 else if (letter == '+')
                 {
-                    currentPosition.z += 1f;
+                    currentPosition.z += 0.5f;
                 }
                 else if (letter == '-')
                 {
-                    currentPosition.z -= 1f;
+                    currentPosition.z -= 0.5f;
                 }
                 else
                 {
@@ -107,7 +118,7 @@ public class LSystem : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(1, 1, 1));
+        Gizmos.DrawWireCube(currentPosition, new Vector3(1, 1, 1));
     }
 
 }
