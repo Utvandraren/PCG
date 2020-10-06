@@ -7,8 +7,10 @@ public class LSystem : MonoBehaviour
     [SerializeField] private string axiom;
     [SerializeField] private int iterations = 1;
     [SerializeField] private GrammarRuleObj[] grammar;
+    [SerializeField] private bool randomlyGeneratedGrammar = false;
 
     private Interpreter interpreter;
+    private GrammarGenerator gramGen;
 
     Vector3 currentPosition;
     string generatedObjects = "";
@@ -29,6 +31,13 @@ public class LSystem : MonoBehaviour
     {
         interpreter = GetComponent<Interpreter>();
         currentPosition = transform.position;
+
+        if (randomlyGeneratedGrammar)
+        {
+            gramGen = new GrammarGenerator();
+            gramGen.GenerateGrammar(grammar);
+        }
+
         generatedObjects = axiom;
         Generate();
     }
@@ -42,8 +51,8 @@ public class LSystem : MonoBehaviour
             GenerateGrammar(generatedObjects);
             generatedObjects += tempGeneratedObjects;
             tempGeneratedObjects = "";
-            Interpret();
-            //interpreter.GenerateObjects(grammar, tempGeneratedObjects);
+            //Interpret();
+            interpreter.GenerateObjects(grammar, generatedObjects);
 
         }
     }
