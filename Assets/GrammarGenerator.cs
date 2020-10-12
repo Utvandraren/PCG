@@ -5,11 +5,13 @@ using UnityEngine;
 public class GrammarGenerator : MonoBehaviour
 {
     System.Random rand = new System.Random();
-
+    GeneticAlgorithm test;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
- 
+
     }
 
     // Update is called once per frame
