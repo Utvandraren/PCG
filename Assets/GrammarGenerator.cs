@@ -5,64 +5,57 @@ using UnityEngine;
 public class GrammarGenerator : MonoBehaviour
 {
     System.Random rand = new System.Random();
-    GeneticAlgorithm test;
-    
-    
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
+    public GrammarRule[] GenerateGrammar(GrammarRule[] grammar)
     {
-        
-    }
-
-    public void GenerateGrammar(GrammarRuleObj[] grammar)
-    {
-        foreach (GrammarRuleObj item in grammar)
+        foreach (GrammarRule item in grammar)
         {
-            generate(item);
+            GenerateGrammarRule(item);
         }
-    }
 
-    private void generate(GrammarRuleObj item)
+        return grammar;
+    }
+    /// <summary>
+    /// Raqndomly generate grammar to interpret
+    /// </summary>
+    /// <param name="item"></param>
+    private void GenerateGrammarRule(GrammarRule item)
     {
         string newGrammar = "";
         int grammarLength = rand.Next(0, 7);
 
         for (int i = 0; i < grammarLength; i++)
         {
-            int nmbr = rand.Next(0, 6);
-            if (nmbr == 0)
-            {
-                newGrammar += "a";
-            }
-            else if(nmbr == 1)
-            {
-                newGrammar += "b";
-            }
-            else if (nmbr == 2)
-            {
-                newGrammar += "c";
+            newGrammar += GeneticAlgorithm.RandomLetter();
 
-            }
-            else if (nmbr == 3)
-            {
-                newGrammar += "d";
-            }
-            else if (nmbr == 4)
-            {
-                newGrammar += "+";
+            //int nmbr = rand.Next(0, 6);
+            //if (nmbr == 0)
+            //{
+            //    newGrammar += "a";
+            //}
+            //else if(nmbr == 1)
+            //{
+            //    newGrammar += "b";
+            //}
+            //else if (nmbr == 2)
+            //{
+            //    newGrammar += "c";
 
-            }
-            else if (nmbr == 5)
-            {
-                newGrammar += "-";
+            //}
+            //else if (nmbr == 3)
+            //{
+            //    newGrammar += "d";
+            //}
+            //else if (nmbr == 4)
+            //{
+            //    newGrammar += "+";
 
-            }          
+            //}
+            //else if (nmbr == 5)
+            //{
+            //    newGrammar += "-";
+
+            //}          
         }
 
         item.createdGrammar = newGrammar;

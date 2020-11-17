@@ -6,7 +6,7 @@ public class Interpreter : MonoBehaviour
 {
     Vector3 currentPosition;
 
-    public void GenerateObjects(GrammarRuleObj[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
+    public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
     {
         Stack state = new Stack();
 

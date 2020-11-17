@@ -4,41 +4,43 @@ using UnityEngine;
 
 public class LSystem : MonoBehaviour
 {
-    [SerializeField] private string axiom;
-    [SerializeField] private int iterations = 1;
-    [SerializeField] private GrammarRuleObj[] grammar;
-    [SerializeField] private bool randomlyGeneratedGrammar = false;
+    [SerializeField]  string axiom;
+    [SerializeField]  int iterations = 1;
+    [SerializeField]  GrammarRule[] grammar;
+    [Space(5)]
+    [SerializeField] bool randomlyGeneratedGrammar = false;
+    [SerializeField] bool useGeneticAlgorithm = false;
 
-    private Interpreter interpreter;
-    private GrammarGenerator gramGen;
+
+    Interpreter interpreter;
+    GrammarGenerator gramGen;
+    GeneticAlgorithm genAlgo;
+
 
     Vector3 currentPosition;
     string generatedObjects = "";
     string tempGeneratedObjects = "";
 
-
-    [System.Serializable]
-    public struct Alphabet
-    {
-        public char letter;
-        public string createdGrammar;
-        public GameObject objToInstantiate;
-        public float objDistance;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         interpreter = GetComponent<Interpreter>();
+        genAlgo = GetComponent<GeneticAlgorithm>();
         currentPosition = transform.position;
+        generatedObjects = axiom;
+
 
         if (randomlyGeneratedGrammar)
         {
             gramGen = new GrammarGenerator();
-            gramGen.GenerateGrammar(grammar);
+            grammar = gramGen.GenerateGrammar(grammar);
         }
 
-        generatedObjects = axiom;
+        if (useGeneticAlgorithm)
+        {
+            genAlgo.EvolveGrammar(grammar);
+        }
+
         Generate();
     }
 
@@ -69,15 +71,9 @@ public class LSystem : MonoBehaviour
                     {
                         tempGeneratedObjects += result;
                     }
-                }
-                
-            }
-           
+                }               
+            }          
         }
-
-        
-
-
     }
 
     void Interpret() //Generate phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
@@ -129,5 +125,7 @@ public class LSystem : MonoBehaviour
     {
         Gizmos.DrawWireCube(currentPosition, new Vector3(1, 1, 1));
     }
+
+    
 
 }
