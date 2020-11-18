@@ -5,10 +5,17 @@ using UnityEngine;
 public class Interpreter : MonoBehaviour
 {
     Vector3 currentPosition;
+    List<GameObject> objPool;
+
+    void Start()
+    {
+        objPool = new List<GameObject>();
+    }
 
     public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
     {
         Stack state = new Stack();
+        objPool.Clear();
 
         foreach (char letter in generatedObjects)
         {
@@ -16,7 +23,7 @@ public class Interpreter : MonoBehaviour
             {
                 if (letter == grammar[i].letter)
                 {
-                    Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity);
+                    objPool.Add(Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity));
                     currentPosition.x += grammar[i].objDistance;
                 }
                 else if (letter == '[')
@@ -39,7 +46,7 @@ public class Interpreter : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("Unrecognised letter");
+                    Debug.LogWarning("Unrecognised letter: " + letter.ToString());
                 }
             }
         }

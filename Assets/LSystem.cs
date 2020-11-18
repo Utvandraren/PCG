@@ -32,19 +32,28 @@ public class LSystem : MonoBehaviour
 
         if (randomlyGeneratedGrammar)
         {
-            gramGen = new GrammarGenerator();
-            grammar = gramGen.GenerateGrammar(grammar);
+            grammar = GeneticAlgorithm.GenerateGrammar(grammar);
         }
 
-        if (useGeneticAlgorithm)
+        //if (useGeneticAlgorithm)
+        //{
+        //    genAlgo.EvolveGrammar(grammar,this);
+        //}
+        if (!useGeneticAlgorithm)
+
         {
-            genAlgo.EvolveGrammar(grammar);
+            Generate();
         }
 
-        Generate();
+        
     }
 
-    void Generate() //Go through current instructions for what to generate
+    public void StartEvolving()
+    {
+        genAlgo.EvolveGrammar(this.grammar, this);
+    }
+
+    public void Generate() //Go through current instructions for what to generate
     {
 
         for (int i = 0; i < iterations; i++)
