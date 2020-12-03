@@ -528,7 +528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Next generation
+  m_Text: Do not pass
 --- !u!222 &686421315
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1182,7 +1182,6 @@ MonoBehaviour:
   usingHumanEvaluation: 1
   my: 5
   lambda: 5
-  iterations: 2
 --- !u!4 &1714378203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 566895549408591907, guid: 4dcd69cf34298334ea93ec2242df65a5,
@@ -1290,6 +1289,11 @@ PrefabInstance:
     - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
         type: 3}
       propertyPath: grammar.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
@@ -1523,6 +1527,69 @@ PrefabInstance:
     - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
         type: 3}
       propertyPath: useGeneticAlgorithm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[0].letter
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[1].letter
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[0].objToInstantiate
+      value: 
+      objectReference: {fileID: 3340517450429593236, guid: a5a4ee246a3d7814ba410afe4b26f87b,
+        type: 3}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[1].objToInstantiate
+      value: 
+      objectReference: {fileID: 6979900591134093943, guid: 7d3554343ca6b694c882ffd0c1024b32,
+        type: 3}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[2].objToInstantiate
+      value: 
+      objectReference: {fileID: 3370566501493004848, guid: 5d0dec40b4a1ccd45a7b7113bdd9c231,
+        type: 3}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[0].createdGrammar
+      value: ab
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[1].createdGrammar
+      value: ba
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[2].letter
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[2].createdGrammar
+      value: cb
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[0].objDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[1].objDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 566895549408591904, guid: 4dcd69cf34298334ea93ec2242df65a5,
+        type: 3}
+      propertyPath: startGrammar.Array.data[2].objDistance
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 566895549408591905, guid: 4dcd69cf34298334ea93ec2242df65a5,

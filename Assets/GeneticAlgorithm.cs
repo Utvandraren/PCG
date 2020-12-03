@@ -23,6 +23,7 @@ public class GeneticAlgorithm : MonoBehaviour
     candidate currentCandidate;
     LSystem manager;
     bool waitingForInput = false;
+    int currentCandidateIndex = 0;
 
     static System.Random rnd = new System.Random();
 
@@ -49,43 +50,36 @@ public class GeneticAlgorithm : MonoBehaviour
         //candidates = new List<candidate>();
     }
 
-    void Update()
-    {
-
-    }
-
-    /// <summary>
-    /// Evolve a new generation of grammar rules based on fitnessfunctions supplied to it
-    /// </summary>
-    public void EvolveGrammar(GrammarRule[] grammar, LSystem lmanager)
+    public void InitializeGrammar(GrammarRule[] grammar, LSystem lmanager)
     {
         manager = lmanager;
         candidates = new List<candidate>();
         createdGrammar = new List<string>();
 
         for (int i = 0; i < (my + lambda); i++)
-        {          
+        {
             candidates.Add(new candidate(GenerateGrammar(grammar)));
         }
+        currentCandidate = candidates[currentCandidateIndex];
+        manager.Generate(candidates[currentCandidateIndex].grammarRule.ToArray());
+    }
 
-        foreach (candidate candidate in candidates)
+   
+    /// <summary>
+    /// Evolve a new generation of grammar rules based on fitnessfunctions supplied to it
+    /// </summary>
+    public void EvolveGrammar()//<----------------Fix so this mehod work, may be problems with indexing array
+    {
+        Debug.Log("EVLONVING GRAMMAR");
+        currentCandidate = candidates[currentCandidateIndex];
+        manager.Generate(candidates[currentCandidateIndex].grammarRule.ToArray());  //sends the current canidates grammar to be generated so we can look and evaluate it    
+        currentCandidateIndex++;
+        
+        if(currentCandidateIndex >= (my + lambda))
         {
-            manager.Generate();
-            currentCandidate = candidate;
-            waitingForInput = true;                 ////<---------here is when the person can decide if the generated grammar get a pass or not
-            while (waitingForInput && usingHumanEvaluation)
-            {
-
-            }
-            //    //Evaluate(candidate);   ---------Use this later
-
+            CrossReproduce();
+            Mutate(candidates[currentCandidateIndex]);
         }
-        CrossReproduce();
-
-
-
-        //candidates.RemoveAll(item => item.fitness > 0);
-
     }
 
     bool GreaterThan(int x, int y)
@@ -120,14 +114,13 @@ public class GeneticAlgorithm : MonoBehaviour
     public void PassCandidate()
     {
         currentCandidate.fitness = 1;
-        waitingForInput = false;
+        EvolveGrammar();
     }
 
     public void DoNotPassCandidate()
     {
         currentCandidate.fitness = 0;
-        waitingForInput = false;
-
+        EvolveGrammar();
     }
 
     void Mutate(candidate candidate)
@@ -145,14 +138,12 @@ public class GeneticAlgorithm : MonoBehaviour
                         candidate.grammarRule[i].createdGrammar.Insert(i, RandomLetter().ToString());                //<<<-----Check so this works
                     }
                 }
-
             }
         }
     }
 
     public static char RandomLetter()
     {
-
         char[] letters = { 'a', 'b', 'c', '+', '-', '[', ']' };
         //return letters[rnd.Next(0, 5)];
         return letters[UnityEngine.Random.Range(0, 7)];

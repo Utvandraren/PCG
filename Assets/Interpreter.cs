@@ -15,7 +15,12 @@ public class Interpreter : MonoBehaviour
     public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
     {
         Stack state = new Stack();
+        foreach (GameObject obj in objPool)
+        {
+            Destroy(obj);
+        }
         objPool.Clear();
+        currentPosition = Vector3.zero;
 
         foreach (char letter in generatedObjects)
         {
@@ -24,7 +29,7 @@ public class Interpreter : MonoBehaviour
                 if (letter == grammar[i].letter)
                 {
                     objPool.Add(Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity));
-                    currentPosition.x += grammar[i].objDistance;
+                    currentPosition.x += 1.0f;
                 }
                 else if (letter == '[')
                 {
