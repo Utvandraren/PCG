@@ -8,7 +8,7 @@ public class GeneticAlgorithm : MonoBehaviour
 {
     [SerializeField]
     [Range(0f, 1f)]
-    float mutationRate = 0f;
+    double mutationRate = 0f;
     [SerializeField]
     bool usingHumanEvaluation = false;
     [SerializeField]
@@ -16,9 +16,6 @@ public class GeneticAlgorithm : MonoBehaviour
     [SerializeField]
     int lambda = 0;
 
-
-    string genotype;
-    List<string> createdGrammar;
     List<candidate> candidates;
     candidate currentCandidate;
     LSystem manager;
@@ -30,14 +27,14 @@ public class GeneticAlgorithm : MonoBehaviour
     public struct candidate
     {
         public int fitness;
-        public List<GrammarRule> grammarRule;
+        public List<GrammarRule> grammarRules;
 
         public candidate(GrammarRule[] newGrammarRules)
         {
-            grammarRule = new List<GrammarRule>();
+            grammarRules = new List<GrammarRule>();
             for (int i = 0; i < newGrammarRules.Length; i++)
             {
-                grammarRule.Add(newGrammarRules[i]);
+                grammarRules.Add(newGrammarRules[i]);
             }
             fitness = 0;
         }
@@ -54,31 +51,45 @@ public class GeneticAlgorithm : MonoBehaviour
     {
         manager = lmanager;
         candidates = new List<candidate>();
-        createdGrammar = new List<string>();
 
         for (int i = 0; i < (my + lambda); i++)
         {
             candidates.Add(new candidate(GenerateGrammar(grammar)));
         }
+        foreach (candidate candidate in candidates)
+        {
+            Mutate(candidate);
+        }
         currentCandidate = candidates[currentCandidateIndex];
-        manager.Generate(candidates[currentCandidateIndex].grammarRule.ToArray());
+        manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());
+
     }
 
-   
+
     /// <summary>
     /// Evolve a new generation of grammar rules based on fitnessfunctions supplied to it
     /// </summary>
-    public void EvolveGrammar()//<----------------Fix so this mehod work, may be problems with indexing array
+    public void EvolveGrammar()//<----------------Fix so this method work-----------the createdgrammar isnt modified so look in mutatefunction
     {
-        Debug.Log("EVLONVING GRAMMAR");
+        Debug.Log("EVOLVING GRAMMAR");
         currentCandidate = candidates[currentCandidateIndex];
-        manager.Generate(candidates[currentCandidateIndex].grammarRule.ToArray());  //sends the current canidates grammar to be generated so we can look and evaluate it    
+        manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());  //sends the current candidate grammar to be generated so we can look at it and evaluate it   
+        //foreach (GrammarRule rule in candidates[currentCandidateIndex].grammarRules)
+        //{
+        //    Debug.Log(rule.createdGrammar);
+        //}
         currentCandidateIndex++;
-        
-        if(currentCandidateIndex >= (my + lambda))
+        Debug.Log("Candidate Index: " + currentCandidateIndex.ToString());
+
+        if (currentCandidateIndex == (my + lambda))
         {
             CrossReproduce();
-            Mutate(candidates[currentCandidateIndex]);
+            foreach (candidate candidate in candidates)
+            {
+                Mutate(candidate);
+            }
+            currentCandidateIndex = 0;
+            EvolveGrammar();
         }
     }
 
@@ -98,6 +109,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
     void CrossReproduce()
     {
+        Debug.Log("CrossReproducing");
         //Take the halv of the candidates that has the highest fitness and 
         candidates.Sort((x, y) => x.fitness.CompareTo(y.fitness));
         candidates.RemoveRange(candidates.Count / 2, candidates.Count / 2);
@@ -126,20 +138,48 @@ public class GeneticAlgorithm : MonoBehaviour
     void Mutate(candidate candidate)
     {
         System.Random rnd = new System.Random();
+        string newGrammar;
+        string oldGrammar;
 
-        for (int i = 0; i < candidate.grammarRule.Count; i++)
+
+
+        foreach (GrammarRule rule in candidate.grammarRules)
         {
-            if (rnd.NextDouble() < mutationRate)
+            //new WaitForSeconds(0.01f);              //-----------------------------------------------
+
+            newGrammar = "";
+            oldGrammar = rule.createdGrammar;
+            foreach (char c in rule.createdGrammar)
             {
-                for (int j = 0; j < candidate.grammarRule[i].createdGrammar.Length; j++)
+                if (rnd.NextDouble() < mutationRate)
                 {
-                    if (rnd.NextDouble() < mutationRate)
-                    {
-                        candidate.grammarRule[i].createdGrammar.Insert(i, RandomLetter().ToString());                //<<<-----Check so this works
-                    }
+                    newGrammar += RandomLetter();
+                }
+                else
+                {
+                    newGrammar += c;
                 }
             }
+            rule.createdGrammar = newGrammar;
+            //Debug.Log("newGrammar: " + newGrammar);
+            //Debug.Log("oldGrammar: " + oldGrammar);
+
+
         }
+
+
+        //for (int i = 0; i < candidate.grammarRules.Count; i++)  //look at each grammarrule in candidate
+        //{
+
+        //    for (int j = 0; j < candidate.grammarRules[i].createdGrammar.Length; j++) //foreach letter in each grammar rule
+        //    {
+        //        if (rnd.NextDouble() < mutationRate)
+        //        {                      
+        //            candidate.grammarRules[i].createdGrammar.Insert(i, RandomLetter().ToString());                //<<<-----Check so this works
+        //        }
+        //    }
+        //}
+
     }
 
     public static char RandomLetter()
