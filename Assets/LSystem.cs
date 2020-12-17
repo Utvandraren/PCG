@@ -30,7 +30,7 @@ public class LSystem : MonoBehaviour
 
         if (randomlyGeneratedGrammar)
         {
-            startGrammar = GeneticAlgorithm.GenerateGrammar(startGrammar);
+            startGrammar = GrammarGenerator.GenerateGrammar(startGrammar);
         }
 
     }
@@ -51,7 +51,8 @@ public class LSystem : MonoBehaviour
     public void Generate(GrammarRule[] grammar) //Go through current instructions for what to generate
     {
         generatedObjects = axiom;
-        
+        interpreter.RemoveOldObjs();
+
         for (int i = 0; i < iterations; i++)
         {
             WriteDebugMessage();
@@ -60,7 +61,6 @@ public class LSystem : MonoBehaviour
             tempGeneratedObjects = "";
             //Interpret();
             interpreter.GenerateObjects(grammar, generatedObjects);
-
         }
     }
 

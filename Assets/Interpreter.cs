@@ -12,14 +12,18 @@ public class Interpreter : MonoBehaviour
         objPool = new List<GameObject>();
     }
 
-    public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
+    public void RemoveOldObjs()
     {
-        Stack state = new Stack();
         foreach (GameObject obj in objPool)
         {
             Destroy(obj);
         }
         objPool.Clear();
+    }
+
+    public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
+    {
+        Stack state = new Stack();      
         currentPosition = Vector3.zero;
 
         foreach (char letter in generatedObjects)

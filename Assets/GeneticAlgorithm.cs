@@ -40,21 +40,14 @@ public class GeneticAlgorithm : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //createdGrammar = new List<string>();
-        //candidates = new List<candidate>();
-    }
-
-    public void InitializeGrammar(GrammarRule[] grammar, LSystem lmanager)
+    public void InitializeGrammar(GrammarRule[] grammar, LSystem lmanager) 
     {
         manager = lmanager;
         candidates = new List<candidate>();
 
         for (int i = 0; i < (my + lambda); i++)
         {
-            candidates.Add(new candidate(GenerateGrammar(grammar)));
+            candidates.Add(new candidate(GrammarGenerator.GenerateGrammar(grammar)));
         }
         foreach (candidate candidate in candidates)
         {
@@ -67,20 +60,10 @@ public class GeneticAlgorithm : MonoBehaviour
 
 
     /// <summary>
-    /// Evolve a new generation of grammar rules based on fitnessfunctions supplied to it
+    /// Evolve a new generation of grammar rules candidates based on fitnessfunctions supplied to it
     /// </summary>
     public void EvolveGrammar()//<----------------Fix so this method work-----------the createdgrammar isnt modified so look in mutatefunction
     {
-        Debug.Log("EVOLVING GRAMMAR");
-        currentCandidate = candidates[currentCandidateIndex];
-        manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());  //sends the current candidate grammar to be generated so we can look at it and evaluate it   
-        //foreach (GrammarRule rule in candidates[currentCandidateIndex].grammarRules)
-        //{
-        //    Debug.Log(rule.createdGrammar);
-        //}
-        currentCandidateIndex++;
-        Debug.Log("Candidate Index: " + currentCandidateIndex.ToString());
-
         if (currentCandidateIndex == (my + lambda))
         {
             CrossReproduce();
@@ -89,8 +72,12 @@ public class GeneticAlgorithm : MonoBehaviour
                 Mutate(candidate);
             }
             currentCandidateIndex = 0;
-            EvolveGrammar();
         }
+
+        Debug.Log(currentCandidateIndex.ToString());
+        currentCandidate = candidates[currentCandidateIndex];
+        manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());  //sends the current candidate grammar to be generated so we can look at it and evaluate it        
+        currentCandidateIndex++;   
     }
 
     bool GreaterThan(int x, int y)
@@ -153,14 +140,14 @@ public class GeneticAlgorithm : MonoBehaviour
             {
                 if (rnd.NextDouble() < mutationRate)
                 {
-                    newGrammar += RandomLetter();
+                    newGrammar += GrammarGenerator.RandomLetter();
                 }
                 else
                 {
                     newGrammar += c;
                 }
             }
-            rule.createdGrammar = newGrammar;
+            rule.createdGrammar = CheckForMissingBrackets(newGrammar);
             //Debug.Log("newGrammar: " + newGrammar);
             //Debug.Log("oldGrammar: " + oldGrammar);
 
@@ -182,30 +169,38 @@ public class GeneticAlgorithm : MonoBehaviour
 
     }
 
-    public static char RandomLetter()
-    {
-        char[] letters = { 'a', 'b', 'c', '+', '-', '[', ']' };
-        //return letters[rnd.Next(0, 5)];
-        return letters[UnityEngine.Random.Range(0, 7)];
-    }
+    
 
-    public static GrammarRule[] GenerateGrammar(GrammarRule[] grammar)
-    {
-        System.Random rand = new System.Random();
+    
 
-        foreach (GrammarRule item in grammar)
+    /// <summary>
+    /// check if the string is missing any bracket pairs to make it complete and then repair it if it is missing any
+    /// </summary>
+    /// <param name="stringToCheck"></param>
+    public static string CheckForMissingBrackets(string stringToCheck )
+    {
+        int leftBrackets = 0;
+        int rightBrackets = 0;
+
+        foreach (char c in stringToCheck)
         {
-            string newGrammar = RandomLetter().ToString();
-            int grammarLength = rand.Next(2, 7);
-
-            for (int i = 0; i < grammarLength; i++)
-            {
-                newGrammar += RandomLetter();
-
-            }
-            item.createdGrammar = newGrammar;
+            if (c == '[')
+                leftBrackets++;
+            else if (c == ']')
+                rightBrackets++;
         }
-        return grammar;
+
+        for (int i = 0; i < leftBrackets - rightBrackets; i++)
+        {
+            stringToCheck += ']';
+        }
+
+        for (int i = 0; i < rightBrackets - leftBrackets; i++)
+        {
+            stringToCheck += '[';
+        }
+
+        return stringToCheck;
     }
 
 }

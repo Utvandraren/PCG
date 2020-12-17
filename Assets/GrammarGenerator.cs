@@ -4,61 +4,67 @@ using UnityEngine;
 
 public class GrammarGenerator : MonoBehaviour
 {
-    System.Random rand = new System.Random();
+    static System.Random rand = new System.Random();
 
-    public GrammarRule[] GenerateGrammar(GrammarRule[] grammar)
+    public static GrammarRule[] GenerateGrammar(GrammarRule[] grammar)
     {
+        rand = new System.Random();
         foreach (GrammarRule item in grammar)
         {
             GenerateGrammarRule(item);
         }
-
         return grammar;
     }
     /// <summary>
     /// Raqndomly generate grammar to interpret
     /// </summary>
     /// <param name="item"></param>
-    private void GenerateGrammarRule(GrammarRule item)
+    private static void GenerateGrammarRule(GrammarRule item)
     {
         string newGrammar = "";
-        int grammarLength = rand.Next(0, 7);
+        int grammarLength = rand.Next(1, 7);
 
         for (int i = 0; i < grammarLength; i++)
-        {
-            newGrammar += GeneticAlgorithm.RandomLetter();
-
-            //int nmbr = rand.Next(0, 6);
-            //if (nmbr == 0)
-            //{
-            //    newGrammar += "a";
-            //}
-            //else if(nmbr == 1)
-            //{
-            //    newGrammar += "b";
-            //}
-            //else if (nmbr == 2)
-            //{
-            //    newGrammar += "c";
-
-            //}
-            //else if (nmbr == 3)
-            //{
-            //    newGrammar += "d";
-            //}
-            //else if (nmbr == 4)
-            //{
-            //    newGrammar += "+";
-
-            //}
-            //else if (nmbr == 5)
-            //{
-            //    newGrammar += "-";
-
-            //}          
+        {           
+            newGrammar += RandomLetter();
         }
 
-        item.createdGrammar = newGrammar;
+        item.createdGrammar = CheckForMissingBrackets(newGrammar);
 
+    }
+
+    public static char RandomLetter()
+    {
+        //rand = new System.Random();
+
+        char[] letters = { 'a', 'b', 'c', '+', '-' };
+        return letters[rand.Next(0, 5)];
+        //return letters[UnityEngine.Random.Range(0, 5)]; //Trying unitys random to see if there is any difference
+    }
+
+    public static string CheckForMissingBrackets(string stringToCheck)
+    {
+        int leftBrackets = 0;
+        int rightBrackets = 0;
+
+        foreach (char c in stringToCheck)
+        {
+            if (c == '[')
+                leftBrackets++;
+            else if (c == ']')
+                rightBrackets++;
+        }
+
+        for (int i = 0; i < leftBrackets - rightBrackets; i++)
+        {
+            stringToCheck += ']';
+        }
+
+        for (int i = 0; i < rightBrackets - leftBrackets; i++)
+        {
+            stringToCheck += '[';
+        }
+
+        return stringToCheck;
     }
 }

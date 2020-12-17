@@ -1180,8 +1180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mutationRate: 0.313
   usingHumanEvaluation: 1
-  my: 5
-  lambda: 5
+  my: 3
+  lambda: 3
 --- !u!4 &1714378203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 566895549408591907, guid: 4dcd69cf34298334ea93ec2242df65a5,
