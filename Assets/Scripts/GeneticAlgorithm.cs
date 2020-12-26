@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.IO;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class GeneticAlgorithm : MonoBehaviour
         }
     }
 
-    public void InitializeGrammar(GrammarRule[] grammar, LSystem lmanager) 
+    public void InitializeGrammar(GrammarRule[] grammar, LSystem lmanager)
     {
         manager = lmanager;
         candidates = new List<candidate>();
@@ -77,7 +78,8 @@ public class GeneticAlgorithm : MonoBehaviour
         Debug.Log(currentCandidateIndex.ToString());
         currentCandidate = candidates[currentCandidateIndex];
         manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());  //sends the current candidate grammar to be generated so we can look at it and evaluate it        
-        currentCandidateIndex++;   
+        currentCandidateIndex++;
+        
     }
 
     bool GreaterThan(int x, int y)
@@ -169,15 +171,11 @@ public class GeneticAlgorithm : MonoBehaviour
 
     }
 
-    
-
-    
-
     /// <summary>
     /// check if the string is missing any bracket pairs to make it complete and then repair it if it is missing any
     /// </summary>
     /// <param name="stringToCheck"></param>
-    public static string CheckForMissingBrackets(string stringToCheck )
+    public static string CheckForMissingBrackets(string stringToCheck)
     {
         int leftBrackets = 0;
         int rightBrackets = 0;
@@ -203,4 +201,25 @@ public class GeneticAlgorithm : MonoBehaviour
         return stringToCheck;
     }
 
+    public void SaveCurrentCandidateData()
+    {
+        RecordCandidateData(candidates[currentCandidateIndex]);
+    }
+
+    void RecordCandidateData(candidate candidate)
+    {
+        string path = "Assets/RecordedCandidates/" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".txt";
+        StreamWriter writer = File.CreateText(path);
+
+        foreach (GrammarRule rule in candidate.grammarRules)
+        {
+            string line = rule.letter.ToString();
+            line += " => ";
+            line += rule.createdGrammar;
+            writer.WriteLine(line);
+            
+        }
+        writer.Close();
+        Debug.Log("Data Saved");
+    }
 }

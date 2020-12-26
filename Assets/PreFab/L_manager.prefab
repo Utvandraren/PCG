@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2045632580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2045632581}
+  - component: {fileID: 2045632584}
+  - component: {fileID: 2045632583}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2045632581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045632580}
+  m_LocalRotation: {x: -0, y: -0, z: 0.16609024, w: 0.98611057}
+  m_LocalPosition: {x: -2.5, y: 1.89, z: 0}
+  m_LocalScale: {x: 5.4607105, y: 2.466, z: 3.2346523}
+  m_Children: []
+  m_Father: {fileID: 566895549408591907}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 19.121}
+--- !u!33 &2045632584
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045632580}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2045632583
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045632580}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &566895549408591905
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,6 +90,7 @@ GameObject:
   - component: {fileID: 566895549408591907}
   - component: {fileID: 566895549408591904}
   - component: {fileID: 2078154303}
+  - component: {fileID: 1714378201}
   m_Layer: 0
   m_Name: L_manager
   m_TagString: Untagged
@@ -28,7 +108,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2045632581}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,11 +127,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axiom: a
   iterations: 3
-  grammar:
-  - {fileID: 11400000, guid: dbabf3a63ef6767469de5cb10d5c1017, type: 2}
-  - {fileID: 11400000, guid: c4ba0cdb6a2f40245b7f5d2e02d1dd98, type: 2}
-  - {fileID: 11400000, guid: 4d38caab851625c4c9ad6a17799045ef, type: 2}
-  - {fileID: 11400000, guid: 8af409f35b5f6454f9f4625d1482ef4d, type: 2}
+  startGrammar:
+  - letter: 97
+    createdGrammar: ab
+    objToInstantiate: {fileID: 3340517450429593236, guid: a5a4ee246a3d7814ba410afe4b26f87b,
+      type: 3}
+  - letter: 98
+    createdGrammar: ba
+    objToInstantiate: {fileID: 6979900591134093943, guid: 7d3554343ca6b694c882ffd0c1024b32,
+      type: 3}
+  - letter: 99
+    createdGrammar: cb
+    objToInstantiate: {fileID: 3370566501493004848, guid: 5d0dec40b4a1ccd45a7b7113bdd9c231,
+      type: 3}
+  randomlyGeneratedGrammar: 0
+  useGeneticAlgorithm: 1
 --- !u!114 &2078154303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,4 +154,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69e7dcd5bfc9ca479a0f3dbfb5d1032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grammar: []
+--- !u!114 &1714378201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566895549408591905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce19380285b2485408e2145c6392b746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutationRate: 0.313
+  usingHumanEvaluation: 1
+  my: 3
+  lambda: 3

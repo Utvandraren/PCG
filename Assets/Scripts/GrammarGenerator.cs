@@ -25,13 +25,28 @@ public class GrammarGenerator : MonoBehaviour
         int grammarLength = rand.Next(1, 7);
 
         for (int i = 0; i < grammarLength; i++)
-        {           
+        {
             newGrammar += RandomLetter();
         }
 
         item.createdGrammar = CheckForMissingBrackets(newGrammar);
 
     }
+
+    //public static string NextLetter(int letterlength) //Not finished
+    //{
+    //    string newGrammar = "";
+
+    //    if (Random.Range(0,3) < 1)
+    //    {
+    //        newGrammar = newGrammar + '[';
+    //    }
+    //    else
+    //    {
+    //        return newGrammar + ']';
+    //    }
+
+    //}
 
     public static char RandomLetter()
     {
@@ -41,6 +56,8 @@ public class GrammarGenerator : MonoBehaviour
         return letters[rand.Next(0, 5)];
         //return letters[UnityEngine.Random.Range(0, 5)]; //Trying unitys random to see if there is any difference
     }
+
+    
 
     public static string CheckForMissingBrackets(string stringToCheck)
     {
