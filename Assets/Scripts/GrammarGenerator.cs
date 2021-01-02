@@ -20,44 +20,36 @@ public class GrammarGenerator : MonoBehaviour
     /// </summary>
     /// <param name="item"></param>
     private static void GenerateGrammarRule(GrammarRule item)
-    {
-        string newGrammar = "";
-        int grammarLength = rand.Next(1, 7);
-
-        for (int i = 0; i < grammarLength; i++)
-        {
-            newGrammar += RandomLetter();
-        }
-
-        item.createdGrammar = CheckForMissingBrackets(newGrammar);
-
+    {     
+        int grammarLength = rand.Next(3, 7);
+        item.createdGrammar = CheckForMissingBrackets(GenerateWordSequence(grammarLength));
     }
 
-    //public static string NextLetter(int letterlength) //Not finished
-    //{
-    //    string newGrammar = "";
+    private static string GenerateWordSequence(int wordLength)
+    {
+        string newGrammar = "";
 
-    //    if (Random.Range(0,3) < 1)
-    //    {
-    //        newGrammar = newGrammar + '[';
-    //    }
-    //    else
-    //    {
-    //        return newGrammar + ']';
-    //    }
-
-    //}
+        for (int i = 0; i < wordLength; i++)
+        {
+            if(rand.Next(0,7) <= 1)
+            {
+                wordLength--;
+                newGrammar += "[";
+                newGrammar += GenerateWordSequence(wordLength);
+                newGrammar += "]";
+                continue;
+            }
+            wordLength--;
+            newGrammar += RandomLetter();
+        }
+        return newGrammar;
+    }
 
     public static char RandomLetter()
     {
-        //rand = new System.Random();
-
         char[] letters = { 'a', 'b', 'c', '+', '-' };
         return letters[rand.Next(0, 5)];
-        //return letters[UnityEngine.Random.Range(0, 5)]; //Trying unitys random to see if there is any difference
     }
-
-    
 
     public static string CheckForMissingBrackets(string stringToCheck)
     {

@@ -22,6 +22,7 @@ public class GeneticAlgorithm : MonoBehaviour
     LSystem manager;
     bool waitingForInput = false;
     int currentCandidateIndex = 0;
+    GrammarRule[] grammarToStartFrom;
 
     static System.Random rnd = new System.Random();
 
@@ -45,15 +46,18 @@ public class GeneticAlgorithm : MonoBehaviour
     {
         manager = lmanager;
         candidates = new List<candidate>();
+        grammarToStartFrom = grammar;
 
-        for (int i = 0; i < (my + lambda); i++)
-        {
-            candidates.Add(new candidate(GrammarGenerator.GenerateGrammar(grammar)));
-        }
-        foreach (candidate candidate in candidates)
-        {
-            Mutate(candidate);
-        }
+        candidates.Add(new candidate(GrammarGenerator.GenerateGrammar(grammar)));
+
+        //for (int i = 0; i < (my + lambda); i++)
+        //{
+        //    candidates.Add(new candidate(GrammarGenerator.GenerateGrammar(grammar)));
+        //}
+        //foreach (candidate candidate in candidates)
+        //{
+        //    Mutate(candidate);
+        //}
         currentCandidate = candidates[currentCandidateIndex];
         manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());
 
@@ -63,8 +67,10 @@ public class GeneticAlgorithm : MonoBehaviour
     /// <summary>
     /// Evolve a new generation of grammar rules candidates based on fitnessfunctions supplied to it
     /// </summary>
-    public void EvolveGrammar()//<----------------Fix so this method work-----------the createdgrammar isnt modified so look in mutatefunction
+    public void EvolveGrammar()
     {
+        candidates.Add(new candidate(GrammarGenerator.GenerateGrammar(grammarToStartFrom)));
+
         if (currentCandidateIndex == (my + lambda))
         {
             CrossReproduce();
@@ -78,8 +84,7 @@ public class GeneticAlgorithm : MonoBehaviour
         Debug.Log(currentCandidateIndex.ToString());
         currentCandidate = candidates[currentCandidateIndex];
         manager.Generate(candidates[currentCandidateIndex].grammarRules.ToArray());  //sends the current candidate grammar to be generated so we can look at it and evaluate it        
-        currentCandidateIndex++;
-        
+        currentCandidateIndex++;     
     }
 
     bool GreaterThan(int x, int y)
@@ -108,8 +113,6 @@ public class GeneticAlgorithm : MonoBehaviour
         {
             candidates.Add(candidates[i % my]);
         }
-
-        //---------------------Not fully made 
     }
 
     public void PassCandidate()
@@ -129,8 +132,6 @@ public class GeneticAlgorithm : MonoBehaviour
         System.Random rnd = new System.Random();
         string newGrammar;
         string oldGrammar;
-
-
 
         foreach (GrammarRule rule in candidate.grammarRules)
         {
@@ -155,20 +156,6 @@ public class GeneticAlgorithm : MonoBehaviour
 
 
         }
-
-
-        //for (int i = 0; i < candidate.grammarRules.Count; i++)  //look at each grammarrule in candidate
-        //{
-
-        //    for (int j = 0; j < candidate.grammarRules[i].createdGrammar.Length; j++) //foreach letter in each grammar rule
-        //    {
-        //        if (rnd.NextDouble() < mutationRate)
-        //        {                      
-        //            candidate.grammarRules[i].createdGrammar.Insert(i, RandomLetter().ToString());                //<<<-----Check so this works
-        //        }
-        //    }
-        //}
-
     }
 
     /// <summary>
@@ -208,7 +195,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
     void RecordCandidateData(candidate candidate)
     {
-        string path = "Assets/RecordedCandidates/" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".txt";
+        string path = "Assets/RecordedCandidates/" + DateTime.Now.ToString("yyyy-MM-dd-HH;mm;ss") + ".txt";
         StreamWriter writer = File.CreateText(path);
 
         foreach (GrammarRule rule in candidate.grammarRules)
@@ -216,8 +203,7 @@ public class GeneticAlgorithm : MonoBehaviour
             string line = rule.letter.ToString();
             line += " => ";
             line += rule.createdGrammar;
-            writer.WriteLine(line);
-            
+            writer.WriteLine(line);           
         }
         writer.Close();
         Debug.Log("Data Saved");
