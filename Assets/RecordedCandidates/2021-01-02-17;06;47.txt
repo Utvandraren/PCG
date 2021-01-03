@@ -1,0 +1,3 @@
+a => bbc
+b => bac
+c => -a
