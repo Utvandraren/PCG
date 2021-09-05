@@ -23,7 +23,7 @@ public class Interpreter : MonoBehaviour
 
     public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
     {
-        Stack state = new Stack();      
+        Stack state = new Stack();
         currentPosition = Vector3.zero;
 
         foreach (char letter in generatedObjects)
@@ -32,8 +32,16 @@ public class Interpreter : MonoBehaviour
             {
                 if (letter == grammar[i].letter)
                 {
-                    objPool.Add(Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity));
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, transform);
+
+                    //if (obj.TryGetComponent(out FixedJoint joint))
+                    //{
+                    //    ConnectJoint(joint);
+                    //}
+
                     currentPosition.x += 1.0f;
+                    objPool.Add(obj);
+
                 }
                 else if (letter == '[')
                 {
@@ -60,5 +68,17 @@ public class Interpreter : MonoBehaviour
             }
         }
         //currentPosition.z += 3f;
+    }
+
+    void ConnectJoint(FixedJoint joint)
+    {
+        for (int j = objPool.Count; j > 0; j--)
+        {
+            if (objPool[j].TryGetComponent(out Rigidbody rigid))
+            {
+                joint.connectedBody = rigid;
+                return;
+            }
+        }
     }
 }

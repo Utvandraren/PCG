@@ -11,11 +11,9 @@ public class LSystem : MonoBehaviour
     [SerializeField] bool randomlyGeneratedGrammar = false;
     [SerializeField] bool useGeneticAlgorithm = false;
 
-
     Interpreter interpreter;
     GrammarGenerator gramGen;
     GeneticAlgorithm genAlgo;
-
     Vector3 currentPosition;
     string generatedObjects = "";
     string tempGeneratedObjects = "";
@@ -32,7 +30,6 @@ public class LSystem : MonoBehaviour
         {
             startGrammar = GrammarGenerator.GenerateGrammar(startGrammar);
         }
-
     }
 
     public void StartEvolving()
