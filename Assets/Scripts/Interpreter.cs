@@ -6,6 +6,7 @@ public class Interpreter : MonoBehaviour
 {
     Vector3 currentPosition;
     List<GameObject> objPool;
+    Segment lastSegment;
 
     void Start()
     {
@@ -34,10 +35,17 @@ public class Interpreter : MonoBehaviour
                 {
                     GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, transform);
 
-                    //if (obj.TryGetComponent(out FixedJoint joint))
-                    //{
-                    //    ConnectJoint(joint);
-                    //}
+                    if (obj.TryGetComponent(out Segment segment))
+                    {
+                        if (lastSegment == null)
+                            lastSegment = segment;
+                        else
+                        {
+                            Rigidbody body = segment.GetComponent<Rigidbody>();
+                            lastSegment.ConnectJoint(body);
+                            lastSegment = segment;
+                        }
+                    }
 
                     currentPosition.x += 1.0f;
                     objPool.Add(obj);
@@ -70,15 +78,15 @@ public class Interpreter : MonoBehaviour
         //currentPosition.z += 3f;
     }
 
-    void ConnectJoint(FixedJoint joint)
-    {
-        for (int j = objPool.Count; j > 0; j--)
-        {
-            if (objPool[j].TryGetComponent(out Rigidbody rigid))
-            {
-                joint.connectedBody = rigid;
-                return;
-            }
-        }
-    }
+    //void ConnectJoint(FixedJoint joint)
+    //{
+    //    for (int j = objPool.Count; j > 0; j--)
+    //    {
+    //        if (objPool[j].TryGetComponent(out Rigidbody rigid))
+    //        {
+    //            joint.connectedBody = rigid;
+    //            return;
+    //        }
+    //    }
+    //}
 }
