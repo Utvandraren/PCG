@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Interpreter : MonoBehaviour
 {
-    Vector3 currentPosition;
-    List<GameObject> objPool;
-    Segment lastSegment;
+    protected Vector3 currentPosition;
+    protected List<GameObject> objPool;
+    protected Segment lastSegment;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class Interpreter : MonoBehaviour
         objPool.Clear();
     }
 
-    public void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
+    public virtual void GenerateObjects(GrammarRule[] grammar, string generatedObjects) //Interpret phenotype based on the genotypes generated from grammar       --->>TODO: add symbols for moving and change rotation
     {
         Stack state = new Stack();
         currentPosition = Vector3.zero;
