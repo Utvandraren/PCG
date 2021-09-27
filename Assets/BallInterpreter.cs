@@ -6,6 +6,7 @@ public class BallInterpreter : Interpreter
 {
     Transform currentParent;
     [SerializeField]Transform[] targetTransforms;
+    Transform startParent;
 
     public override void GenerateObjects(GrammarRule[] grammar, string generatedObjects)
     {
@@ -23,9 +24,9 @@ public class BallInterpreter : Interpreter
     void GenerateArm(GrammarRule[] grammar, string generatedObjects)
     {
         Stack state = new Stack();
-        Vector3 currentPosition = Vector3.zero;
-        Transform startParent = currentParent;
-        Transform headTransform = currentParent;
+        Vector3 currentPosition = currentParent.position;
+        startParent = currentParent;
+        GameObject headObject = gameObject;
         bool firstObj = true;
 
         foreach (char letter in generatedObjects)
@@ -42,11 +43,11 @@ public class BallInterpreter : Interpreter
                     GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
                     objPool.Add(obj);
                     currentParent = obj.transform;
-                    currentPosition.x += 1.0f;
+                    currentPosition.x += 2.0f;
 
                     if (firstObj)
                     {
-                        headTransform = obj.transform;
+                        headObject = obj;
                         firstObj = false;
                     }
                 }
@@ -78,14 +79,13 @@ public class BallInterpreter : Interpreter
                 {
                     Debug.LogWarning("Unrecognised letter: " + letter.ToString());
                 }
-            }
-            headTransform.position = startParent.position;
-            headTransform.rotation = startParent.rotation;
-
+            }                       
         }
+        headObject.transform.position = startParent.position;
+        headObject.transform.rotation = startParent.rotation;
     }
 
-    
+
 
 
 }
