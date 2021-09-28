@@ -1246,7 +1246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1370348788
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1904,31 +1904,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RandomTreeCreature
       objectReference: {fileID: 0}
-    - target: {fileID: 8167180755712963176, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: iterations
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: startGrammar.Array.data[0].letter
-      value: 97
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: startGrammar.Array.data[0].createdGrammar
-      value: b-[[a]+a]+b[+ba]-a
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: startGrammar.Array.data[1].createdGrammar
-      value: bb
-      objectReference: {fileID: 0}
     - target: {fileID: 8167180755712963178, guid: b9f0e3164390c0f4699765e12bf12999,
         type: 3}
       propertyPath: m_RootOrder
@@ -1983,16 +1958,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183804311980620431, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: angle
-      value: 22
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183804311980620431, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
-      propertyPath: debug
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9f0e3164390c0f4699765e12bf12999, type: 3}

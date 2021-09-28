@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiom: a
-  iterations: 2
+  iterations: 4
   startGrammar:
   - letter: 97
     createdGrammar: b-[[a]+a]+b[+ba]-a
@@ -170,8 +170,12 @@ MonoBehaviour:
     createdGrammar: bb
     objToInstantiate: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
       type: 3}
+  - letter: 99
+    createdGrammar: bb
+    objToInstantiate: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
+      type: 3}
   randomlyGeneratedGrammar: 0
-  useGeneticAlgorithm: 0
+  useGeneticAlgorithm: 1
 --- !u!114 &8541538350513645456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce19380285b2485408e2145c6392b746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mutationRate: 0.313
+  mutationRate: 0.1940000057220459
   usingHumanEvaluation: 1
   my: 3
   lambda: 3
@@ -202,10 +206,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultObject: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
     type: 3}
-  angle: 90
+  angle: 22
   targetTransforms:
   - {fileID: 9204314645531800512}
-  debug: 1
+  debug: 0
 --- !u!1 &8541538350459212301
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,13 +13,19 @@ public class BallInterpreter : Interpreter
     Transform currentParent;
     Transform startParent;
 
+    Vector3 savedPos;
+    Quaternion savedRot;
+
     public override void GenerateObjects(GrammarRule[] grammar, string generatedObjects)
     {
 
         for (int i = 0; i < targetTransforms.Length; i++)
         {
             currentParent = targetTransforms[i];
-            if(debug)
+            savedPos = currentParent.position;
+            savedRot = currentParent.rotation;
+
+            if (debug)
             {
                 StopAllCoroutines();
                 IEnumerator coroutine = CoroutineGenerate(grammar, generatedObjects);
@@ -41,13 +47,12 @@ public class BallInterpreter : Interpreter
         Stack savedPosition = new Stack();
         Stack savedRotation = new Stack();
 
-        Vector3 currentPosition = currentParent.position;
-        Quaternion currenRotation = currentParent.rotation;
 
         startParent = currentParent;
         GameObject headObject = gameObject;
         bool firstObj = true;
-
+        startParent.localPosition = Vector3.zero;
+        startParent.localRotation = Quaternion.identity;
 
         foreach (char letter in generatedObjects)
         {
