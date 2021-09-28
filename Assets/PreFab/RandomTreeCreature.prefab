@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiom: a
-  iterations: 2
+  iterations: 3
   startGrammar:
   - letter: 97
     createdGrammar: +-[[a]+a]++[++a]-a
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1297369ad6db9c4d83b6888b3fceea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultObject: {fileID: 0}
   movememntSteps: 1
   targetTransforms:
   - {fileID: 9204314645531800512}

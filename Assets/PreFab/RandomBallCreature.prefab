@@ -854,10 +854,6 @@ MonoBehaviour:
     createdGrammar: ba
     objToInstantiate: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
       type: 3}
-  - letter: 100
-    createdGrammar: baa
-    objToInstantiate: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
-      type: 3}
   randomlyGeneratedGrammar: 1
   useGeneticAlgorithm: 1
 --- !u!114 &9137912714849963683
@@ -927,6 +923,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1297369ad6db9c4d83b6888b3fceea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultObject: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
+    type: 3}
   movememntSteps: 1
   targetTransforms:
   - {fileID: 677318238}

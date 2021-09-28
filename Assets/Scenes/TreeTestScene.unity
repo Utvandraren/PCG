@@ -1714,11 +1714,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
         type: 3}
-      propertyPath: iterations
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
-        type: 3}
       propertyPath: useGeneticAlgorithm
       value: 0
       objectReference: {fileID: 0}
@@ -1726,6 +1721,21 @@ PrefabInstance:
         type: 3}
       propertyPath: randomlyGeneratedGrammar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: startGrammar.Array.data[1].letter
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: startGrammar.Array.data[0].createdGrammar
+      value: aa
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167180755712963177, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: startGrammar.Array.data[1].createdGrammar
+      value: a-[[b]+b]+a[+ab]-b
       objectReference: {fileID: 0}
     - target: {fileID: 8167180755712963178, guid: b9f0e3164390c0f4699765e12bf12999,
         type: 3}
@@ -1781,6 +1791,37 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183804311980620431, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: defaultObject
+      value: 
+      objectReference: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
+        type: 3}
+    - target: {fileID: 9204314645531800512, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204314645531800512, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204314645531800512, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204314645531800512, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204314645531800512, guid: b9f0e3164390c0f4699765e12bf12999,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9f0e3164390c0f4699765e12bf12999, type: 3}
