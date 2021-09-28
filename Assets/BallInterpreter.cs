@@ -43,7 +43,7 @@ public class BallInterpreter : Interpreter
                     GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
                     objPool.Add(obj);
                     currentParent = obj.transform;
-                    currentPosition.x += 2.0f;
+                    currentPosition.x += 1.0f;
 
                     if (firstObj)
                     {
@@ -63,17 +63,35 @@ public class BallInterpreter : Interpreter
                 }
                 else if (letter == '+')
                 {
-                    //currentPosition.z += 0.5f;
-                    Vector3 newPos = currentParent.position;
-                    currentPosition.z += 0.5f;
-                    currentParent.position = newPos;
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
+                    objPool.Add(obj);
+                    currentParent = obj.transform;
+
+                    currentPosition.z += 1.0f;
                 }
                 else if (letter == '-')
                 {
-                    //currentPosition.z -= 0.5f;
-                    Vector3 newPos = currentParent.position;
-                    currentPosition.z -= 0.5f;
-                    currentParent.localPosition = newPos;
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
+                    objPool.Add(obj);
+                    currentParent = obj.transform;
+
+                    currentPosition.z -= 1.0f;
+                }
+                else if (letter == '<')
+                {
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
+                    objPool.Add(obj);
+                    currentParent = obj.transform;
+
+                    currentPosition.y -= 1.0f;
+                }
+                else if (letter == '>')
+                {
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
+                    objPool.Add(obj);
+                    currentParent = obj.transform;
+
+                    currentPosition.y -= 1.0f;
                 }
                 else
                 {
@@ -84,7 +102,6 @@ public class BallInterpreter : Interpreter
         headObject.transform.position = startParent.position;
         headObject.transform.rotation = startParent.rotation;
     }
-
 
 
 

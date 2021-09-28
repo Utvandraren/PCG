@@ -47,7 +47,7 @@ public class GrammarGenerator : MonoBehaviour
 
     public static char RandomLetter()
     {
-        char[] letters = { 'a', 'b', 'c', '+', '-' };
+        char[] letters = { 'a', 'b', 'c', '+', '-', '<', '>' };
         return letters[rand.Next(0, 5)];
     }
 

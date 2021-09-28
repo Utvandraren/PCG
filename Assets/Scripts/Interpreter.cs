@@ -69,6 +69,20 @@ public class Interpreter : MonoBehaviour
                 {
                     currentPosition.z -= 0.5f;
                 }
+                else if (letter == '<')
+                {
+                    //currentPosition.z -= 0.5f;
+                    //Vector3 newPos = currentParent.position;
+                    currentPosition.y -= 1.0f;
+                    //currentParent.localPosition = newPos;
+                }
+                else if (letter == '>')
+                {
+                    //currentPosition.z -= 0.5f;
+                    //Vector3 newPos = currentParent.position;
+                    currentPosition.y -= 1.0f;
+                    //currentParent.localPosition = newPos;
+                }
                 else
                 {
                     Debug.LogWarning("Unrecognised letter: " + letter.ToString());
