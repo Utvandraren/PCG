@@ -23,14 +23,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6724436627839154926}
-  m_LocalRotation: {x: -0, y: -0, z: 0.69818133, w: 0.71592104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2628200518454436182}
   m_Father: {fileID: 8167180755712963178}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 88.563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7117744921588947534
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,13 +56,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7117744921588947534}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.62072, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9204314645531800512}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3947484875295688191
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -160,18 +160,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiom: a
-  iterations: 3
+  iterations: 2
   startGrammar:
   - letter: 97
-    createdGrammar: +-[[a]+a]++[++a]-a
+    createdGrammar: b-[[a]+a]+b[+ba]-a
     objToInstantiate: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
       type: 3}
-  - letter: 43
-    createdGrammar: ++
+  - letter: 98
+    createdGrammar: bb
     objToInstantiate: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
       type: 3}
-  randomlyGeneratedGrammar: 1
-  useGeneticAlgorithm: 1
+  randomlyGeneratedGrammar: 0
+  useGeneticAlgorithm: 0
 --- !u!114 &8541538350513645456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,10 +200,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1297369ad6db9c4d83b6888b3fceea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultObject: {fileID: 0}
-  movememntSteps: 1
+  defaultObject: {fileID: 6491575807737932885, guid: 3f8664ad02d335e4baa96184ad3bd5c5,
+    type: 3}
+  angle: 90
   targetTransforms:
   - {fileID: 9204314645531800512}
+  debug: 1
 --- !u!1 &8541538350459212301
 GameObject:
   m_ObjectHideFlags: 0

@@ -57,31 +57,61 @@ public class LSystem : MonoBehaviour
         generatedObjects = axiom;
         interpreter.RemoveOldObjs();
 
-        for (int i = 0; i < iterations; i++)
+        for (int i = 0; i <= iterations; i++)
         {
-            WriteDebugMessage();
-            generatedObjects += GenerateGrammar(generatedObjects);
-            interpreter.GenerateObjects(grammar, generatedObjects);
+            //WriteDebugMessage();
+            generatedObjects = GenerateGrammar(generatedObjects);
+
         }
+        interpreter.GenerateObjects(grammar, generatedObjects);
+
     }
 
     public string GenerateGrammar(string generatedObjects)  //Translate the current letters to the next iterations instructions
     {
         string tempGeneratedObjects = "";
+        bool letterFound = false;
 
         foreach (char letter in generatedObjects)
         {
-            for (int i = 0; i < startGrammar.Length; i++)
+            foreach (GrammarRule item in startGrammar)
             {
-                if (letter == startGrammar[i].letter)
+                if (letter == item.letter)
                 {
-                    foreach (char result in startGrammar[i].createdGrammar)
-                    {
-                        tempGeneratedObjects += result;
-                    }
+                    tempGeneratedObjects += item.createdGrammar;
+                    letterFound = true;
+                    break;
                 }               
-            }          
+            }
+            if(!letterFound)
+            {
+                tempGeneratedObjects += letter;
+                letterFound = false;
+            }
+            else
+            {
+                letterFound = false;
+            }
+
+            //for (int i = 0; i < startGrammar.Length; i++)
+            //{
+            //    if (letter == startGrammar[i].letter)
+            //    {
+            //        tempGeneratedObjects += startGrammar[i].createdGrammar;
+            //        //foreach (char result in startGrammar[i].createdGrammar)
+            //        //{
+            //        //    tempGeneratedObjects += result;
+            //        //}
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        tempGeneratedObjects += letter;
+            //        break;
+            //    }
+            //}          
         }
+        Debug.LogFormat("Iteration:" + iterations.ToString() + "||" + tempGeneratedObjects);
 
         return tempGeneratedObjects;
     }
