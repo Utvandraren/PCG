@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class BallInterpreter : Interpreter
 {
+    [SerializeField] float movememntSteps = 1f;
+    [SerializeField] Transform[] targetTransforms;
+
     Transform currentParent;
-    [SerializeField]Transform[] targetTransforms;
     Transform startParent;
 
     public override void GenerateObjects(GrammarRule[] grammar, string generatedObjects)
@@ -35,15 +37,10 @@ public class BallInterpreter : Interpreter
             {
                 if (letter == grammar[i].letter)
                 {
-
-
-                    //currentTransform.localPosition += movementTick;
-                    //currentTransform.localPosition *= 2f;
-
                     GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
                     objPool.Add(obj);
                     currentParent = obj.transform;
-                    currentPosition.x += 1.0f;
+                    currentPosition.x += movememntSteps;
 
                     if (firstObj)
                     {
@@ -54,28 +51,12 @@ public class BallInterpreter : Interpreter
                 else if (letter == '[')
                 {
                     //Pop a state from the stack and make it the current state of the turtle.
-                    state.Push(currentParent);
+                    state.Push(currentPosition);
                 }
                 else if (letter == ']')
                 {
                     //Push the current state of the turtle onto a pushdown stack.
-                    currentParent = (Transform)state.Pop();
-                }
-                else if (letter == '+')
-                {
-                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
-                    objPool.Add(obj);
-                    currentParent = obj.transform;
-
-                    currentPosition.z += 1.0f;
-                }
-                else if (letter == '-')
-                {
-                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
-                    objPool.Add(obj);
-                    currentParent = obj.transform;
-
-                    currentPosition.z -= 1.0f;
+                    currentPosition = (Vector3)state.Pop();
                 }
                 else if (letter == '<')
                 {
@@ -83,7 +64,7 @@ public class BallInterpreter : Interpreter
                     objPool.Add(obj);
                     currentParent = obj.transform;
 
-                    currentPosition.y -= 1.0f;
+                    currentPosition.z -= movememntSteps;
                 }
                 else if (letter == '>')
                 {
@@ -91,7 +72,23 @@ public class BallInterpreter : Interpreter
                     objPool.Add(obj);
                     currentParent = obj.transform;
 
-                    currentPosition.y -= 1.0f;
+                    currentPosition.z += movememntSteps;
+                }
+                else if (letter == '+')
+                {
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
+                    objPool.Add(obj);
+                    currentParent = obj.transform;
+
+                    currentPosition.y -= movememntSteps;
+                }
+                else if (letter == '-')
+                {
+                    GameObject obj = Instantiate(grammar[i].objToInstantiate, currentPosition, Quaternion.identity, currentParent);
+                    objPool.Add(obj);
+                    currentParent = obj.transform;
+
+                    currentPosition.y -= movememntSteps;
                 }
                 else
                 {

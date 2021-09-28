@@ -21,7 +21,7 @@ public class GrammarGenerator : MonoBehaviour
     /// <param name="item"></param>
     private static void GenerateGrammarRule(GrammarRule item)
     {     
-        int grammarLength = rand.Next(3, 7);
+        int grammarLength = rand.Next(1, 7);
         item.createdGrammar = CheckForMissingBrackets(GenerateWordSequence(grammarLength));
     }
 
@@ -48,7 +48,7 @@ public class GrammarGenerator : MonoBehaviour
     public static char RandomLetter()
     {
         char[] letters = { 'a', 'b', 'c', '+', '-', '<', '>' };
-        return letters[rand.Next(0, 5)];
+        return letters[rand.Next(0, 6)];
     }
 
     public static string CheckForMissingBrackets(string stringToCheck)

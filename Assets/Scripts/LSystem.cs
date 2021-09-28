@@ -32,6 +32,13 @@ public class LSystem : MonoBehaviour
         }
     }
 
+    public void GenerateRandomObject()
+    {
+        startGrammar = GrammarGenerator.GenerateGrammar(startGrammar);
+        Generate(startGrammar);
+
+    }
+
     public void StartEvolving()
     {
         if (!useGeneticAlgorithm)
